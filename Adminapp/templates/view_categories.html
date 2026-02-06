@@ -1,0 +1,219 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+
+<style>
+  .fixed-table {
+    table-layout: auto;   /* 🔑 important */
+    width: 100%;
+  }
+
+  .desc-box {
+    max-width: 250px;
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .img-fixed {
+    width: 1150px;      /* increase as you want */
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+}
+
+  .action-btns a {
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+  .table-responsive {
+    max-height: 400px; /* Adjust as needed */
+    overflow-y: auto;
+  }
+  table tr td {
+    vertical-align: middle;
+}
+.category-img {
+    
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+.table td img.category-img {
+  width: 200px !important;
+  height: 200px !important;
+  max-width: unset !important;
+  object-fit: cover !important;
+  border-radius: 10px !important;
+}
+
+
+/* Page title */
+h3 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Table card look */
+.table-responsive {
+  background: #111;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* Table */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header */
+.table thead th {
+  background: linear-gradient(135deg, #1f2933, #111827);
+  color: #f9fafb;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  border: none;
+}
+
+/* Rows */
+.table tbody tr {
+  background: #0f172a;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.table tbody tr:hover {
+  background: #020617;
+  transform: scale(1.01);
+}
+
+/* Cells */
+.table td {
+  color: #e5e7eb;
+  border-color: #1e293b;
+  font-size: 14px;
+}
+
+/* Description box */
+.desc-box {
+  max-width: 280px;
+  max-height: 120px;
+  padding: 8px;
+  background: #020617;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  scrollbar-width: thin;
+}
+
+/* Image styling */
+.category-img {
+  width: 90px !important;
+  height: 90px !important;
+  border-radius: 12px !important;
+  border: 2px solid #1e293b;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.category-img:hover {
+  transform: scale(1.4);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+  z-index: 10;
+}
+
+/* Action buttons */
+.btn {
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border: none;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626, #7f1d1d);
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Scrollbar (Chrome) */
+.desc-box::-webkit-scrollbar {
+  width: 5px;
+}
+
+.desc-box::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+
+
+
+
+</style>
+<h3 class="mb-3">Category List</h3>
+<div class="col-md-12 grid-margin stretch-card">
+<div class="table-responsive ">
+  <table class="table table-bordered table-striped table-hover fixed-table">
+
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>Category Name</th>
+        <th class="desc-box">Description</th>
+        <th style="width: 250px;">Image</th>
+        <th>Action</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for cat in categories %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ cat.CategoryName }}</td>
+        <td>
+  <div class="desc-box">
+    {{ cat.Description }}
+  </div>
+</td>
+</div>
+
+        <td>
+          {% if cat.CategoryImage %}
+          <div class="img-wrapper">
+            <img src="{{ cat.CategoryImage.url }}"  class="category-img">
+          </div>
+          {% else %}
+            No Image
+          {% endif %}
+        </td>
+        <td>
+          <a href="{% url 'edit_categorypage' cat_id=cat.id %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'delete_category' cat_id=cat.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center">No categories found</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+
+
+{% endblock %}

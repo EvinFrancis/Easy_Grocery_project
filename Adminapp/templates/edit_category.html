@@ -1,0 +1,87 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+<style>
+/* Form container */
+.form1 {
+    max-width: 500px;
+    margin: 30px    auto ;
+    background: #f8f3f3;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* Focus effect */
+input[type="text"]:focus,
+textarea:focus,
+input[type="file"]:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Image preview */
+img {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+/* Button */
+button {
+    background: #4f46e5;
+    color: #fff;
+    padding: 10px 26px;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+button:hover {
+    background: #3730a3;
+
+}
+
+
+
+
+</style>
+<div class="content-wrapper">
+
+
+<form method="POST" enctype="multipart/form-data" action="{% url 'edit_category' cat_id=category.id %}" class="form1">
+    {% csrf_token %}
+
+    <label>Category Name</label><br>
+    <input type="text" name="category_name" 
+           value="{{ category.CategoryName }}" required>
+    <br><br>
+
+    <label>Description</label><br>
+    <textarea name="description" required>{{ category.Description }}</textarea>
+    <br><br>
+
+    <label>Current Image</label><br>
+    <img src="{{ category.CategoryImage.url }}" width="120"><br><br>
+
+    <label>Change Image (optional)</label><br>
+    <input type="file" name="category_image">
+    <br><br>
+
+    <button type="submit">Update Category</button>
+</form>
+
+
+</div>
+
+{% endblock %}

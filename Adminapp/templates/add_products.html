@@ -1,0 +1,85 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+
+<style>
+/* Product form styling */
+.product-form {
+    max-width: 700px;
+    margin: 30px auto;
+    background: #bcb8b8;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    font-family: "Segoe UI", sans-serif;
+}
+
+.product-form label {
+    font-weight: 600;
+    margin-top: 12px;
+    display: block;
+}
+
+.product-form input,
+.product-form textarea,
+.product-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.product-form button {
+    margin-top: 20px;
+    background: #4f46e5;
+    color: #fff;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.product-form button:hover {
+    background: #3730a3;
+}
+</style>
+
+<div class="product-form">
+    <h3>Add New Product</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Category Dropdown -->
+        <label>Category</label>
+        <select name="category" required>
+            <option value="">-- Select Category --</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.CategoryName }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Product Name -->
+        <label>Product Name</label>
+        <input type="text" name="product_name" placeholder="Enter product name" required>
+
+        <!-- Price -->
+        <label>Price</label>
+        <input type="number" name="price" step="0.01" placeholder="Enter price" required>
+
+        <!-- Description -->
+        <label>Description</label>
+        <textarea name="description" rows="4" placeholder="Product description" required></textarea>
+
+        <!-- Product Image -->
+        <label>Product Image</label>
+        <input type="file" name="product_image" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Add Product</button>
+    </form>
+</div>
+
+{% endblock %}
