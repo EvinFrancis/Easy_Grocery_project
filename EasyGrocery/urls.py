@@ -19,10 +19,12 @@ from django.urls import path ,include
 import Adminapp.urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns,static
 from django.conf import settings
+import Webapp.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('store/',include(Adminapp.urls)),
+    path('EasyGrocery/',include(Webapp.urls)),
 ]
 
 
