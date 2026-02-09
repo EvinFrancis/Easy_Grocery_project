@@ -59,9 +59,9 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
+                <li class="active"><a href="./index.html"></a></li>
                 <li><a href="./shop-grid.html">Shop</a></li>
-                <li><a href="#">Pages</a>
+                <li><a href="#">Categoris</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="./shop-details.html">Shop Details</a></li>
                         <li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -97,7 +97,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li><i class="fa fa-envelope"></i> hello@cib.com</li>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
@@ -134,20 +134,20 @@
                         <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
+                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <li><a href="{% url "products" %}">Products </a></li>
+                            <li><a href="#">Categoerys</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    {% for i in category%}
+                                    <li><a href="./shop-details.html">{{i.CategoryName}}</a></li>
+                                    {% endfor %}
+                                    
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="./contact.html">Contact</a></li>
                         </ul>
                     </nav>
@@ -177,20 +177,15 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>All categories</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                              {% for i in category%}
+                                    <li><a href="./shop-details.html">{{i.CategoryName}}</a></li>
+                                    
+                            
+                            {% endfor %}
+                            
                         </ul>
                     </div>
                 </div>
@@ -235,12 +230,16 @@
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
+                                            {% for i in category%}
+
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{% static 'web/img/categories/cat-1.jpg' %}">
-                            <h5><a href="#">Fresh Fruit</a></h5>
+                        <div class="categories__item set-bg" data-setbg="{{i.CategoryImage.url}}">
+                            <h5><a href="#">{{i.CategoryName}}</a></h5>
                         </div>
+                            
                     </div>
-                    <div class="col-lg-3">
+                    {% endfor %}
+                    {% comment %} <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="{% static 'web/img/categories/cat-2.jpg' %}">
                             <h5><a href="#">Dried Fruit</a></h5>
                         </div>
@@ -259,7 +258,7 @@
                         <div class="categories__item set-bg" data-setbg="{% static 'web/img/categories/cat-5.jpg' %}">
                             <h5><a href="#">drink fruits</a></h5>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
