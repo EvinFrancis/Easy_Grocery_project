@@ -4,4 +4,5 @@ urlpatterns=[
     path('home/',views.home,name='home'),
     path('products/',views.products,name='products'),
     path('about/',views.about,name='about'),
+    path('filtered_products/<str:cat_name>/',views.filtered_products,name='filtered_products'),
 ]
