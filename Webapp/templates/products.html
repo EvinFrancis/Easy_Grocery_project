@@ -254,7 +254,7 @@
                             <h4>Department</h4>
                             <ul>
                                 {% for i in our_products %}
-                                <li><a href="#">{{i.ProductName }}</a></li>
+                                <li><a href="{% url 'filtered_products' cat_name=i.Category %}">{{i.ProductName }}</a></li>
                                 {% endfor %}
                                
                             </ul>
@@ -348,7 +348,7 @@
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
                                         {% for product in latest_pro %}
-                                        <a href="#" class="latest-product__item">
+                                        <a href="{% url 'filtered_products' cat_name=product.Category %}" class="latest-product__item">
                                             <div class="latest-product__item__pic">
                                                 <img src="{{ product.ProductImage.url }}" alt="">
                                             </div>
@@ -391,7 +391,7 @@
                           {% for i in products %}
 
                                 <div class="col-lg-4">
-
+<a href="{% url 'filtered_products' cat_name=i.Category %}">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
                                             data-setbg="{{i.ProductImage.url}}">
@@ -400,7 +400,7 @@
                                         </div>
                                         <div class="product__discount__item__text">
                                         
-                                            <h5><a href="#">{{i.ProductName}}</a></h5>
+                                            <h5>{{i.ProductName}}</a></h5>
                                             <div class="product__item__price">$.{{i.Price}} <span>$36.00</span></div>
                                         </div>
 

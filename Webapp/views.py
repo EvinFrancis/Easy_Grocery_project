@@ -32,3 +32,6 @@ def filtered_products(request ,cat_name):
     return render(request,'filtered_products.html',{"products":products_filtered
                         
                                                     })
+def single_vegetable(request,prod_name):
+    pro_name=ProductDb.objects.filter(ProductName=prod_name)
+    return render(request,'single_vegetable.html',{"product":pro_name})
