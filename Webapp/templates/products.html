@@ -530,15 +530,12 @@
                         {% for i in category %}
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="{{ i.CategoryImage.url }}">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
+                                <a href="{% url 'filtered_products' cat_name=i.CategoryName %}">
+                               <div class="product__item__pic set-bg" data-setbg="{{ i.CategoryImage.url }}">
+                                    
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">{{i.CategoryName}}</a></h6>
+                                    <h6> {{i.CategoryName}}</a></h6>
                                     <h5>$30.00</h5>
                                 </div>
                             </div>

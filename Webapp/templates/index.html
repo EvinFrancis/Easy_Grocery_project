@@ -148,7 +148,7 @@
                                 </ul>
                             </li>
                             <li><a href="{% url 'about' %}">About Us</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -181,7 +181,7 @@
                         </div>
                         <ul>
                               {% for i in category%}
-                                    <li><a href="./shop-details.html">{{i.CategoryName}}</a></li>
+                                    <li><a href={% url 'filtered_products' cat_name=i.CategoryName  %}>{{i.CategoryName}}</a></li>
                                     
                             
                             {% endfor %}

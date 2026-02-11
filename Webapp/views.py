@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Adminapp.models import *
+from Webapp.models import contactDb
 
 # Create your views here.
 def home(request):
@@ -29,9 +30,23 @@ def products(request):
 def filtered_products(request ,cat_name):
     products_filtered=ProductDb.objects.filter(Category=cat_name)
     
+    
     return render(request,'filtered_products.html',{"products":products_filtered
                         
                                                     })
-def single_vegetable(request,prod_name):
-    pro_name=ProductDb.objects.filter(ProductName=prod_name)
+
+
+def single_vegetable(request,prod_id):
+    pro_name=ProductDb.objects.get(id=prod_id)
     return render(request,'single_vegetable.html',{"product":pro_name})
+
+def contact(request):
+    contacts=contactDb.objects.all()
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        subject=request.POST.get("subject")
+        message=request.POST.get("message")
+        obj=contactDb(Name=name,Email=email,Subject=subject,Message=message)
+        obj.save()
+    return render(request,'contact.html')
