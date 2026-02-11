@@ -5,8 +5,8 @@ class CategoryDb(models.Model):
     CategoryName=models.CharField( max_length=50,unique=True)
     Description=models.TextField()
     CategoryImage=models.ImageField(upload_to="categories")
-    def __str__(self):
-        return self.CategoryName # 
+    # def __str__(self):
+    #     return self.CategoryName # 
 class ProductDb(models.Model):
     ProductName=models.CharField(max_length=100)
     Description=models.TextField()
@@ -16,3 +16,9 @@ class ProductDb(models.Model):
     Category=models.CharField(max_length=50)
     def __str__(self):
         return self.ProductName
+class serviceDb(models.Model):
+    ServiceName=models.CharField(max_length=100)
+    Description=models.TextField()
+    ServiceImage=models.ImageField(upload_to="services")
+    def __str__(self):
+        return self.ServiceName

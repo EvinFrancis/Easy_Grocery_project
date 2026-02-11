@@ -20,6 +20,9 @@ urlpatterns = [
     path('delete_product/<int:prod_id>/',views.delete_product,name='delete_product'),
     path('edit_productpage/<int:prod_id>/',views.edit_productpage,name='edit_productpage'),
     path('edit_product/<int:prod_id>/',views.edit_product,name='edit_product'),
+    path('add_service/',views.add_service,name='add_service'),
+    path('save_service/',views.save_service,name='save_service'),
+    path('view_services/',views.view_services,name='view_services'),
     
     
 

@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from Adminapp.models import *
-from Webapp.models import contactDb
+from Webapp.models import *
 
 # Create your views here.
 def home(request):
+    serv=serviceDb.objects.all()#fetch all the data from the serviceDb table and store it in the variable serv.
     Category=CategoryDb.objects.all()
     latest_products=ProductDb.objects.order_by('-id')[:4]#fetch the latest 4 products from the ProductDb table and store it in the variable latest_products.
     return render(request,'index.html' ,{"category":Category
-                                         ,"latest_products":latest_products})
+                                         ,"latest_products":latest_products
+                                         ,"services":serv
+                                         })
 
 
 def about(request):

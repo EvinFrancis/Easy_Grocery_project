@@ -129,14 +129,14 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="{% static 'web\img\llogo.png' %}" alt="" style="width:150px;height:100px;"></a>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-7">
                     <nav class="header__menu">
-                        <ul>
+                        <ul class="d-flex align-items-center justify-content-start mb-0">
                             <li class="active"><a href="{% url 'home' %}">Home</a></li>
                             <li><a href="{% url "products" %}">Products </a></li>
                             <li><a href="#">Categoerys</a>
@@ -147,7 +147,15 @@
                                     
                                 </ul>
                             </li>
-                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'about' %}">AboutUs</a></li>
+                            <li><a href="#">Services</a>
+                            <ul class="header__menu__dropdown">
+                                    {% for i in services%}
+                                    <li><a href="#">{{i.ServiceName}}</a></li>
+                                    {% endfor %}
+                                    
+                                </ul></li>
+
                             <li><a href="{% url 'contact' %}">Contact</a></li>
                         </ul>
                     </nav>
@@ -155,11 +163,9 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
-                    </div>
+                        
                 </div>
             </div>
             <div class="humberger__open">

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,login
-from Adminapp.models import CategoryDb,ProductDb
+from Adminapp.models import *
 
 # Create your views here.
 def admin_dashboard(request):
@@ -130,6 +130,23 @@ def edit_product(request,prod_id):
         category_name=request.POST.get("category")
         obj=ProductDb.objects.filter(id=prod_id).update(ProductName=product_name,Description=description,Price=price,Category=category_name,ProductImage=product_image)
         return redirect(view_products)
+    
+def add_service(request):
+   
+    return render(request,'add_service.html') 
+def save_service(request):
+     if request.method=="POST":
+        service_name=request.POST.get("ServiceName")
+        description=request.POST.get("Description")
+        service_image=request.FILES.get("ServiceImage")   
+        obj1=serviceDb(ServiceName=service_name,Description=description,ServiceImage=service_image)
+        obj1.save()  
+        return redirect(add_service) 
+     
+def view_services(request):
+    services=serviceDb.objects.all()
+    return render(request,'view_services.html',{"services":services})
+
 
 
 
