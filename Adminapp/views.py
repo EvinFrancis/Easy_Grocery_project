@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,login
 from Adminapp.models import *
+from Webapp.models import *
 
 # Create your views here.
 def admin_dashboard(request):
@@ -146,6 +147,18 @@ def save_service(request):
 def view_services(request):
     services=serviceDb.objects.all()
     return render(request,'view_services.html',{"services":services})
+
+def contact_info(request):
+    contact=contactDb.objects.all()
+    return render(request,'contact.html',{"contacts":contact})
+
+def signin(request):
+    return render(request,'signin_page.html')
+
+
+def signup(request):
+    return render(request,"signUp.html")
+
 
 
 

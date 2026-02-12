@@ -22,3 +22,11 @@ class serviceDb(models.Model):
     ServiceImage=models.ImageField(upload_to="services")
     def __str__(self):
         return self.ServiceName
+
+class Registrationdb(models.Model):
+    username=models.CharField(max_length=100)
+    email=models.EmailField(unique=True)    
+    password=models.CharField(max_length=100)
+    confrimpassword=models.CharField(max_length=100)
+    def __str__(self):
+        return self.username
