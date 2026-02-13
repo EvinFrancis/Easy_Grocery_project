@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Adminapp.models import *
 from Webapp.models import *
 
@@ -53,3 +53,55 @@ def contact(request):
         obj=contactDb(Name=name,Email=email,Subject=subject,Message=message)
         obj.save()
     return render(request,'contact.html')
+
+def signin(request):
+    return render(request,'signin_page.html')
+
+
+def signup(request):
+    return render(request,"signUp.html")
+
+#save user sing up
+def save_user(request):
+    if request.method=="POST":
+        username=request.POST.get("username")
+        email=request.POST.get("email")
+        password=request.POST.get("password")
+        confirm_password=request.POST.get("confirm_password")
+        
+        obj=Registrationdb(username=username,email=email,password=password,confrimpassword=confirm_password)
+        if Registrationdb.objects.filter(email=email).exists():
+            print("email already exists")
+            return redirect(signup)
+        elif Registrationdb.objects.filter(username=username).exists():
+            print("username already exists")
+            return redirect(signup)
+        else:
+            obj.save()
+            return redirect(signup)
+    
+#user login
+def user_log_in(request):
+    if request.method=="POST":
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+        if Registrationdb.objects.filter(username=username,password=password).exists():
+            #sesssion creations
+            request.session['username']=username
+            request.session['password']=password
+            return redirect(home)
+        else:
+            return redirect(signin)
+        #session creations and redirection to home page after successful login.
+        
+def user_log_out(request):
+    del request.session['username']
+    del request.session['password']
+    return redirect(home)  #session deletion and redirection to home page after logout. 
+           
+
+
+# view car page
+
+def cart(request):
+    return render(request,'cart.html')

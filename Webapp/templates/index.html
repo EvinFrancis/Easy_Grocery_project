@@ -53,9 +53,11 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
+            
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+                <a href="{% url 'signin' %}"><i class="fa fa-user"></i> Login</a>
             </div>
+            
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -119,9 +121,16 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+
+                             {% if request.session.username %}
+            <div class="header__top__right__auth">
+                <a href="{% url 'user_log_out' %}"><i class="fa fa-user"></i> {{ request.session.username }}</a>
+            </div>
+            {% else %}
+            <div class="header__top__right__auth">
+                <a href="{% url 'signin' %}"><i class="fa fa-user"></i> Login</a>
+            </div>
+            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -163,7 +172,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-bag"></i> <span>6</span></a></li>
                         </ul>
                         
                 </div>
@@ -617,12 +626,12 @@
                     <div class="footer__widget">
                         <h6>Useful Links</h6>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'products' %}">Products</a></li>
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li><a href="#">Service</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Categoerys</a></li>
                         </ul>
                         <ul>
                             <li><a href="#">Who We Are</a></li>

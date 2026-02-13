@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from Adminapp.models import *
 from Webapp.models import *
+from Webapp.views import home
 
 # Create your views here.
 def admin_dashboard(request):
@@ -152,12 +153,6 @@ def contact_info(request):
     contact=contactDb.objects.all()
     return render(request,'contact.html',{"contacts":contact})
 
-def signin(request):
-    return render(request,'signin_page.html')
-
-
-def signup(request):
-    return render(request,"signUp.html")
 
 
 
