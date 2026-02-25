@@ -133,31 +133,34 @@
         </div>
     </div>
         {% comment %} java script.. {% endcomment %}
-     <script>
-        function form_validation() {
-            
-            let username=document.getElementById("username").value;
-            let email=document.getElementById("email").value;
-            let password=document.getElementById("password").value;
-            let confirm_password=document.getElementById("confirm_password").value;
-            if (username==""|| email==""|| password==""|| confirm_password=="") 
-            {
-                alert("Please fill all the fields");
-             return false;   
-            }
-            
-            if(password!==confirm_password)
-            {
-                alert("Password and Confirm Password does not match");
-                return false;
-            }
-            
-                return true;
-            
-        }
-    </script>
+     
     <script src="{% static "../../shared/js/form-utils.js " %}"></script>
     <script src="{% static "login/js/script.js" %}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ {% if messages %}
+  {% for msg in messages %}
+     {% if msg.tags == 'success' %}
+     <script>
+     swal("{{msg}}",' ', "success");
+     </script>
+     
+     {% endif %}
+     {% if msg.tags == 'error' %}
+     <script>
+     swal("{{msg}}",' ', "error");
+     </script>
+     
+     {% endif %}
+     {% if msg.tags == 'warning' %}
+     <script>
+     swal("{{msg}}",' ', "warning");
+     </script>
+     
+     {% endif %}
+  {% endfor %}
+{% endif %}
+
    
 </body>
 </html>

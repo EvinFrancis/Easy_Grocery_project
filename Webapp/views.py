@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from Adminapp.models import *
 from Webapp.models import *
+from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
@@ -72,12 +74,19 @@ def save_user(request):
         obj=Registrationdb(username=username,email=email,password=password,confrimpassword=confirm_password)
         if Registrationdb.objects.filter(email=email).exists():
             print("email already exists")
+            messages.warning(request,"email already exists")
             return redirect(signup)
         elif Registrationdb.objects.filter(username=username).exists():
+            messages.warning(request,"Username already exists")
             print("username already exists")
+            return redirect(signup)
+        elif Registrationdb.objects.filter(password=confirm_password).exists():
+            messages.warning(request,"Password doesn't match")
+            print("Password doesn't match")
             return redirect(signup)
         else:
             obj.save()
+            messages.success(request,"Registration successfully")
             return redirect(signup)
     
 #user login
@@ -89,8 +98,10 @@ def user_log_in(request):
             #sesssion creations
             request.session['username']=username
             request.session['password']=password
+            messages.success(request,"Login successfully")
             return redirect(home)
         else:
+            messages.warning(request,"Invalid username or password")
             return redirect(signin)
         #session creations and redirection to home page after successful login.
         
@@ -104,4 +115,16 @@ def user_log_out(request):
 # view car page
 
 def cart(request):
+    return render(request,'cart.html')
+
+def cart_save(request):
+    if request.method=="POST":
+        username=request.POST.get("username")
+        name=request.POST.get("pname")
+        quantity=request.POST.get("quantity")
+        price=request.POST.get("price")
+        total=request.POST.get("total")
+        product_img=request.POST.get("product_image")
+        obj=cartdb(productname=name,quantity=quantity,price=price,username=username,total_price=total,productimage=product_img)
+        obj.save()
     return render(request,'cart.html')

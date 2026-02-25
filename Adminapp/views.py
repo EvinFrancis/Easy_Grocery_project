@@ -53,7 +53,7 @@ def category(request):
         obj=CategoryDb(CategoryName=category,Description=Des,CategoryImage=imga)
         obj.save()
         messages.success(request,"Category added successfully")
-        return  redirect("add_category")
+        return  redirect(add_category)
 
 def view_products(request):
     products=ProductDb.objects.all()#fetch all the data from the ProductDb table and store it in the variable products.
@@ -67,7 +67,7 @@ def display_categories(request):
 def delete_category(request,cat_id):
     category=CategoryDb.objects.get(id=cat_id)
     category.delete()
-    messages.success(request,"Category deleted successfully")
+    messages.error(request,"Category deleted successfully")
     return redirect(display_categories)
 def edit_category(request,cat_id):
     if request.method=="POST":
@@ -148,6 +148,7 @@ def save_service(request):
         service_image=request.FILES.get("ServiceImage")   
         obj1=serviceDb(ServiceName=service_name,Description=description,ServiceImage=service_image)
         obj1.save()  
+        messages.success(request,"Service added successfully")
         return redirect(add_service) 
      
 def view_services(request):

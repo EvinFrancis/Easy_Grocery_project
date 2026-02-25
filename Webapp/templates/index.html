@@ -290,11 +290,9 @@
                     </div>
                     <div class="featured__controls">
                         <ul>
-                            <li class="active" data-filter="*">All</li>
-                            <li data-filter=".oranges">Oranges</li>
-                            <li data-filter=".fresh-meat">Fresh Meat</li>
-                            <li data-filter=".vegetables">Vegetables</li>
-                            <li data-filter=".fastfood">Fastfood</li>
+                            {% for i in category%}
+                            <li class="active" data-filter="*">{{i.CategoryName}}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -311,7 +309,7 @@
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">{{p.ProductName}}</a></h6>
+                            <h6><a href="{% url 'single_vegetable' prod_id=p.id %}">{{p.ProductName}}</a></h6>
                             <h5>$ {{p.Price}}</h5>
                         </div>
                     </div>
@@ -683,6 +681,31 @@
     <script src="{% static 'web/js/mixitup.min.js' %}"></script>
     <script src="{% static 'web/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'web/js/main.js' %}"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ {% if messages %}
+  {% for msg in messages %}
+     {% if msg.tags == 'success' %}
+     <script>
+     swal("{{msg}}",' ', "success");
+     </script>
+     
+     {% endif %}
+     {% if msg.tags == 'error' %}
+     <script>
+     swal("{{msg}}",' ', "error");
+     </script>
+     
+     {% endif %}
+     {% if msg.tags == 'warning' %}
+     <script>
+     swal("{{msg}}",' ', "warning");
+     </script>
+     
+     {% endif %}
+  {% endfor %}
+{% endif %}
 
 
 

@@ -14,6 +14,7 @@ urlpatterns=[
     path('user_log_in/',views.user_log_in,name='user_log_in'),
     path('user_log_out/',views.user_log_out,name='user_log_out'),
     path('cart/',views.cart,name='cart'),
+    path('cart_save',views.cart_save,name='cart_save'),
     
     
 ]
