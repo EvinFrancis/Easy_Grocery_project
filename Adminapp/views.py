@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate,login
 from Adminapp.models import *
 from Webapp.models import *
 from Webapp.views import home
+from django.contrib import messages
 
 # Create your views here.
 def admin_dashboard(request):
@@ -40,12 +41,7 @@ def add_products(request):
     category=CategoryDb.objects.all()
     return render (request,'add_products.html',{"categories": category})
 def add_category(request):
-    if request.method=="POST":
-        category=request.POST.get("category_name")
-        Des=request.POST.get("description")
-        imga=request.FILES.get("category_image")
-        obj=CategoryDb(CategoryName=category,Description=Des,CategoryImage=imga)
-        obj.save()
+  
         
     return render (request,'add_categories.html')
 
@@ -56,6 +52,7 @@ def category(request):
         imga=request.FILES.get("category_image")
         obj=CategoryDb(CategoryName=category,Description=Des,CategoryImage=imga)
         obj.save()
+        messages.success(request,"Category added successfully")
         return  redirect("add_category")
 
 def view_products(request):
@@ -70,6 +67,7 @@ def display_categories(request):
 def delete_category(request,cat_id):
     category=CategoryDb.objects.get(id=cat_id)
     category.delete()
+    messages.success(request,"Category deleted successfully")
     return redirect(display_categories)
 def edit_category(request,cat_id):
     if request.method=="POST":
@@ -83,6 +81,8 @@ def edit_category(request,cat_id):
             image=CategoryDb.objects.get(id=cat_id).CategoryImage
          
         obj=CategoryDb.objects.filter(id=cat_id).update(CategoryName=category_name,Description=description,CategoryImage=image)
+        
+        messages.success(request,"Category updated successfully")
         return redirect(display_categories)
     
 
@@ -101,7 +101,9 @@ def save_product(request):
         
         Category_Name=request.POST.get("category")  
         obj1=ProductDb(ProductName=produact_name,Description=description,Price=price,Category=Category_Name,ProductImage=product_image)
-        obj1.save()  
+        obj1.save() 
+        messages.success(request,"Product added successfully")
+ 
         return redirect(add_products)
     
     #delete products//
@@ -109,6 +111,7 @@ def save_product(request):
 def delete_product(request,prod_id):
     products=ProductDb.objects.get(id=prod_id)
     products.delete()
+    messages.success(request,"Product deleted successfully")
     return redirect(view_products)
 
 #edit products//
@@ -130,7 +133,9 @@ def edit_product(request,prod_id):
         else:
             product_image=ProductDb.objects.get(id=prod_id).ProductImage
         category_name=request.POST.get("category")
+        
         obj=ProductDb.objects.filter(id=prod_id).update(ProductName=product_name,Description=description,Price=price,Category=category_name,ProductImage=product_image)
+        messages.success(request,"Product updated successfully")
         return redirect(view_products)
     
 def add_service(request):

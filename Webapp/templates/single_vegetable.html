@@ -273,14 +273,25 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">Rs.{{ product.Price }}</div>
+                        <div class="product__details__price" >
+                            Rs.{{ product.Price}}</div>
                         <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
                             vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
                             quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="number"  id="quantity1"placeholder="Select Quantity"  min="1">
+                                    <input type="hidden" id="price" name="price" value="{{ product.Price}}">   
+                                      
+                                </div>
+                            </div>
+                            <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div >
+                                    <input type="text"  id="total" placeholder="Total"   readonly>
+                                    <input type="text"  name="name" value="{{ product.ProductName}}"> 
+                                    <input type="text"  name="product_image" value="{{ product.ProductImage.url}}"> 
                                 </div>
                             </div>
                         </div>
@@ -548,6 +559,20 @@
     <script src="{% static 'web/js/mixitup.min.js' %}"></script>
     <script src="{% static 'web/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'web/js/main.js' %}"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            $("#quantity1").change(function(){
+                x= Number(document.getElementById("quantity1").value);
+                let y=Number( document.getElementById("price").value
+                );//get price from data attribute
+                document.getElementById("total").value=x*y +" $";
+               
+                });
+            });
+        
+    </script>
 
 
 </body>

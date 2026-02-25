@@ -6,3 +6,12 @@ class contactDb(models.Model):
     Email=models.EmailField()
     Subject=models.CharField(max_length=200)
     Message=models.TextField()
+
+
+class cartdb(models.Model):
+    username=models.CharField(max_length=100)
+    productname=models.CharField(max_length=100)
+    productimage=models.ImageField(upload_to='cart images', height_field=None,null=True,blank=True)
+    price=models.CharField(max_length=100)
+    quantity=models.CharField(max_length=100)
+    total_price=models.CharField(max_length=100)
