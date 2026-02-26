@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from Adminapp.models import *
 from Webapp.models import *
 from django.contrib import messages
+from decimal import Decimal
+
 
 
 # Create your views here.
@@ -115,16 +117,48 @@ def user_log_out(request):
 # view car page
 
 def cart(request):
-    return render(request,'cart.html')
+    usname=request.session['username']
+    data=cartdb.objects.filter(username=usname)
+    sub_total=0
+    delivery=0
+    grand_total=0
+    user_data=cartdb.objects.filter(username=usname)
+    for i in user_data:
+    
+        sub_total +=i.total_price
+        if sub_total>1000:
+            delivery=0
+        elif sub_total>500:
+            delivery=50
+        else:
+            delivery=100
+        grand_total=sub_total+delivery
+    return render(request,'cart.html',{"data":data
+                                       ,"sub_total":sub_total
+                                       ,"delivery":delivery
+                                       ,"grand_total":grand_total
+                                       })
+
+
 
 def cart_save(request):
     if request.method=="POST":
         username=request.POST.get("username")
         name=request.POST.get("pname")
         quantity=request.POST.get("quantity")
-        price=request.POST.get("price")
-        total=request.POST.get("total")
-        product_img=request.POST.get("product_image")
+        price=Decimal(request.POST.get("price"))
+        total=Decimal(request.POST.get("total"))
+        pro=ProductDb.objects.filter(ProductName=name).first()
+        product_img=pro.ProductImage if pro else None
         obj=cartdb(productname=name,quantity=quantity,price=price,username=username,total_price=total,productimage=product_img)
         obj.save()
-    return render(request,'cart.html')
+    return redirect(cart)
+
+def delete_cart(request,cart_id):
+    
+    cartdb.objects.filter(id=cart_id).delete()
+    messages.error(request,"Product deleted successfully")
+    return redirect(cart)
+
+def checkout_page(request):
+    return render(request,'check_out_page.html')

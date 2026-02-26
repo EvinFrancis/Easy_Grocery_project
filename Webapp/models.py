@@ -11,7 +11,7 @@ class contactDb(models.Model):
 class cartdb(models.Model):
     username=models.CharField(max_length=100)
     productname=models.CharField(max_length=100)
-    productimage=models.ImageField(upload_to='cart images', height_field=None,null=True,blank=True)
-    price=models.CharField(max_length=100)
+    productimage=models.ImageField(upload_to='cart_images', height_field=None,null=True,blank=True)
+    price=models.IntegerField(max_length=100)
     quantity=models.CharField(max_length=100)
-    total_price=models.CharField(max_length=100)
+    total_price=models.IntegerField(max_length=100)

@@ -263,7 +263,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                    <form action="{% url 'cart_save' %}" method="POST" >
+                    <form action="{% url 'cart_save' %}" method="POST"  enctype="multipart/form-data">
                         {% csrf_token %}
                     <div class="product__details__text">
                         <h3>{{ product.ProductName }}</h3>
@@ -283,7 +283,7 @@
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="number"  id="quantity1" name="quantity" placeholder="Select Quantity" value="1"  min="1">
+                                    <input type="number"  id="quantity1" name="quantity" placeholder="Select Quantity"  min="1">
                                     <input type="hidden" id="price" name="price" value="{{ product.Price}}">   
                                       
                                 </div>
@@ -291,17 +291,17 @@
                             <div class="product__details__quantity">
                             <div class="quantity">
                                 <div >
-                                    <input type="text"  id="total"  name="total" placeholder="Total"   readonly>
+                                    Rs.<input type="text"  id="total"  name="total" placeholder="Total"   readonly>
                                     <input type="hidden"  name="pname" value="{{ product.ProductName}}"> 
-                                    <input type="hidden"  name="product_image" value="{{ product.ProductImage.url}}"> 
-                                    <input type="text"  name="username" value="{{ request.session.username }}"> 
+                                    
+                                    <input type="hidden"  name="username" value="{{ request.session.username }}"> 
                                     
                                 </div>
                             </div>
                         </div>
                         {% if request.session.username %}
                         <div>
-                            <a href="{% url 'cart'%}" class="primary-btn"><button type="submit">ADD TO CART</button></a>
+                             <button class="primary-btn" type="submit">ADD TO CART</button></a>
                            <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         </div>
                         {% else %}
@@ -572,7 +572,7 @@
                 x= Number(document.getElementById("quantity1").value);
                 let y=Number( document.getElementById("price").value
                 );//get price from data attribute
-                document.getElementById("total").value=x*y +" $";
+                document.getElementById("total").value=x*y ;
                
                 });
             });
