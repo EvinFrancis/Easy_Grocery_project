@@ -15,3 +15,17 @@ class cartdb(models.Model):
     price=models.IntegerField(max_length=100)
     quantity=models.CharField(max_length=100)
     total_price=models.IntegerField(max_length=100)
+
+class chechoutdb(models.Model):
+    firstname=models.CharField(max_length=100)
+    lastname=models.CharField(max_length=100)
+    country=models.CharField(max_length=100)
+    address=models.CharField(max_length=100)
+    city=models.CharField(max_length=100)
+    state=models.CharField(max_length=100,null=True,blank=True)
+    pin=models.CharField(max_length=100)
+    mobile=models.CharField(max_length=100)
+    email=models.EmailField(max_length=100)
+    totalprice=models.IntegerField(max_length=100)
+
+  

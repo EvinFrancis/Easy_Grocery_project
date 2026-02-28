@@ -8,7 +8,10 @@ from django.contrib import messages
 
 # Create your views here.
 def admin_dashboard(request):
-    return render(request, 'dashboard.html')
+    category=CategoryDb.objects.count()
+    products=ProductDb.objects.count()
+    return render(request, 'dashboard.html',{'category':category,'products':products
+                                             })
 def admin_loginpage(request):
     return render(request, 'admin_login.html')
 
