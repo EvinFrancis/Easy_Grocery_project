@@ -155,7 +155,7 @@ def user_log_out(request):
            
 
 
-# view car page
+# view cart page
 
 def cart(request):
     username = request.session.get('username')
@@ -211,6 +211,10 @@ def delete_cart(request,cart_id):
     return redirect(cart)
 
 def checkout_page(request): 
+    username = request.session.get('username')
+
+    if not username:
+       return redirect(signin)
     cart=0
     uname = request.session.get('username')
     if uname:

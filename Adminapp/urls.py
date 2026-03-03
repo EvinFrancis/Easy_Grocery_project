@@ -5,7 +5,7 @@ from Adminapp import views
 urlpatterns = [
     path('dashboard/',views.admin_dashboard,name='admin_dashboard'), 
     path('admin_login/',views.admin_login,name='admin_login'),
-    path('admin_loginpage/',views.admin_loginpage,name='admin_loginpage'),
+    path('',views.admin_loginpage,name='admin_loginpage'),
     path('admin_logout/',views.admin_logout,name='admin_logout'),
     path('add_products/',views.add_products,name='add_products'), 
     path('add_category/',views.add_category,name='add_category'),
