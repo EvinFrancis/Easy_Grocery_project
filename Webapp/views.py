@@ -3,6 +3,7 @@ from Adminapp.models import *
 from Webapp.models import *
 from django.contrib import messages
 from decimal import Decimal
+import razorpay
 
 
 
@@ -157,6 +158,10 @@ def user_log_out(request):
 # view car page
 
 def cart(request):
+    username = request.session.get('username')
+
+    if not username:
+       return redirect(signin)
     cart=0
     uname = request.session.get('username')
     if uname:
@@ -252,5 +257,26 @@ def checkout_save(request):
 
 
 def paytment_page(request):
-    return render(request,'payment_page.html')
+    categories=CategoryDb.objects.all()
+    uname = request.session.get('username')
+    cart_total=0
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
+    customer=chechoutdb.objects.order_by('-id').first()
+    payy=customer.totalprice
+    amount=int(payy*100)
+    payy_str=str(amount)
+    
+    if request.method=="POST":
+         order_currency="INR"
+         client=razorpay.Client(auth=("rzp_test_0ib0jPwwZ7I1lT", "VjHNO5zKeKxz8PYe7VnzwxMR"))
+         payment=client.order.create({'amount':amount,'currency':order_currency})
+         
+    
+    return render(request,'payment_page.html',{
+         'category':categories,"cart_total":cart_total,
+         "payy_str":payy_str
+    })
+
 
