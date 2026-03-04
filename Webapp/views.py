@@ -284,3 +284,21 @@ def paytment_page(request):
     })
 
 
+#update quantity in cart page
+def update_cart_quantity(request,cart_id):
+    if request.method=="POST":
+       action=request.POST.get("action")
+       obj=cartdb.objects.get(id=cart_id)
+       if action=="plus":
+         obj.quantity+=1
+       elif action=="minus":
+          if obj.quantity>1:
+
+              obj.quantity-=1
+    obj.total_price=obj.quantity * obj.price
+    obj.save()
+        
+        
+
+    return redirect(cart)
+

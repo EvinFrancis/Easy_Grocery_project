@@ -19,6 +19,7 @@ urlpatterns=[
     path('checkout_page/',views.checkout_page,name='checkout_page'),
     path('paytment_page/',views.paytment_page,name='paytment_page'),
     path('checkout_save/',views.checkout_save,name='checkout_save'),
+    path('update_cart_quantity/<int:cart_id>/',views.update_cart_quantity,name='update_cart_quantity'),
 
     
     
